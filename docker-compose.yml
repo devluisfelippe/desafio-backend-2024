@@ -1,0 +1,29 @@
+version: "3.2"
+
+#name: teste-backend-containers
+
+services:
+  postgres:
+    restart: always
+    image: postgres:14.5
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - "5432:5432"
+    volumes:
+      # Initial DB Setup
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - testebackendnet
+
+networks:
+  testebackendnet:
+
+volumes:
+  postgres_data:
