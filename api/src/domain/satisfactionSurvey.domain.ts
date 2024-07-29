@@ -41,9 +41,10 @@ export default class SatisfactionSurveyDomain {
                     questions: satisfactionSurvey.questions.map((question, index) => {
                         return {
                             question: question,
-                            answer: satisfactionSurvey.answers && satisfactionSurvey.answers[0] && satisfactionSurvey.answers[0].satisfaction_survey_answers
-                                ? satisfactionSurvey.answers[0].satisfaction_survey_answers[index]
-                                : []
+                            answers: satisfactionSurvey.answers && satisfactionSurvey.answers[0] && satisfactionSurvey.answers[0].satisfaction_survey_answers
+                                ? satisfactionSurvey.answers.map(answer => {
+                                    return answer.satisfaction_survey_answers[index]
+                                }) : []
                         }
                     })
                 }
