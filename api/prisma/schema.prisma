@@ -12,3 +12,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model SatisfactionSurvey {
+  id                       String    @unique @default(uuid())
+  responsible_person       String
+  email_responsible_person String
+  status                   String
+  purpose                  String
+  target_audience          String
+  assessment               String?
+  questions                String[]
+  answers                  Answers[]
+  updated_at               DateTime  @updatedAt
+  created_at               DateTime  @default(now())
+
+  @@map("satisfaction_survey")
+}
+
+model Answers {
+  id                          String             @unique @default(uuid())
+  client                      String
+  email_client                String
+  assessment                  Int
+  satisfaction_survey_answers String[]
+  satisfaction_survey_id      String
+  satisfaction_survey         SatisfactionSurvey @relation(fields: [satisfaction_survey_id], references: [id])
+  created_at                  DateTime           @default(now())
+
+  @@map("answers")
+}

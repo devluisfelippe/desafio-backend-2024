@@ -22,6 +22,22 @@ services:
     networks:
       - testebackendnet
 
+  api:
+    restart: always
+    build:
+      context: ./api
+      dockerfile: Dockerfile_Api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    env_file:
+      - .env
+    networks:
+      - testebackendnet
+
 networks:
   testebackendnet:
 
